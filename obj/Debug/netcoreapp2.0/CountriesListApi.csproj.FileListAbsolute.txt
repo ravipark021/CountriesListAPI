@@ -1,0 +1,10 @@
+C:\Users\ravip\Dev\CountriesListApi\bin\Debug\netcoreapp2.0\CountriesListApi.deps.json
+C:\Users\ravip\Dev\CountriesListApi\bin\Debug\netcoreapp2.0\CountriesListApi.runtimeconfig.json
+C:\Users\ravip\Dev\CountriesListApi\bin\Debug\netcoreapp2.0\CountriesListApi.runtimeconfig.dev.json
+C:\Users\ravip\Dev\CountriesListApi\bin\Debug\netcoreapp2.0\CountriesListApi.dll
+C:\Users\ravip\Dev\CountriesListApi\bin\Debug\netcoreapp2.0\CountriesListApi.pdb
+C:\Users\ravip\Dev\CountriesListApi\obj\Debug\netcoreapp2.0\CountriesListApi.csproj.CoreCompileInputs.cache
+C:\Users\ravip\Dev\CountriesListApi\obj\Debug\netcoreapp2.0\CountriesListApi.AssemblyInfoInputs.cache
+C:\Users\ravip\Dev\CountriesListApi\obj\Debug\netcoreapp2.0\CountriesListApi.AssemblyInfo.cs
+C:\Users\ravip\Dev\CountriesListApi\obj\Debug\netcoreapp2.0\CountriesListApi.dll
+C:\Users\ravip\Dev\CountriesListApi\obj\Debug\netcoreapp2.0\CountriesListApi.pdb
