@@ -18,6 +18,10 @@ namespace CountriesListApi.Models
 
             this.AddRange(items);
         }
+        public PaginatedList(List<T> items)
+        {
+            this.AddRange(items);
+        }
 
         public bool HasPreviousPage
         {
@@ -40,6 +44,11 @@ namespace CountriesListApi.Models
             var count = await source.CountAsync();
             var items = await source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
             return new PaginatedList<T>(items, count, pageIndex, pageSize);
+        }
+        public static async Task<List<T>> CreateAsync(IQueryable<T> source)
+        {
+            var count = await source.CountAsync();
+            return new PaginatedList<T>(await source.ToListAsync());
         }
 
     }

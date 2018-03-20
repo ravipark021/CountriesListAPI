@@ -14,10 +14,10 @@ namespace CountriesList.Services
         {
             List<object> results = new List<object>();
             // var results = Task.WhenAll(source.Select(PopulateCountryData));
-            foreach (var item in source)
-            {
+            Parallel.ForEach(source, (item) => {
                 results.Add(PopulateCountryData(item));
-            }
+            });
+            
             return new
             {
                 countries = results.ToList(),
@@ -67,6 +67,49 @@ namespace CountriesList.Services
                 currencyValueInINR = currencyValue,
                 countryFlagURI = countryFlag
             };
+        }
+
+        public static object PopulateFullCountryData(Country country, bool isFavorite)
+        {
+            string countryMapURI = "https://maps.google.com/maps?q=" + country.Name + "&t=&z=3&ie=UTF8&iwloc=&output=embed";
+            string countryDataAPI = "https://restcountries.eu/rest/v2/alpha/" + country.ShortName + "?fields=capital;currencies";
+            string countryFlag = "http://www.countryflags.io/" + country.ShortName + "/flat/64.png";
+
+            var countryDataResponse = Utilities.Get(countryDataAPI);
+            var JsonResponse = JObject.Parse(countryDataResponse.Result);
+            string countryCapital = JsonResponse["capital"].ToString();
+
+            var JSONCurrencyResponse = JObject.Parse(JsonResponse["currencies"][0].ToString());
+            string currencyCode = JSONCurrencyResponse["code"].ToString();
+            string currencyName = JSONCurrencyResponse["name"].ToString();
+
+            string currencyDataAPI = "https://free.currencyconverterapi.com/api/v5/convert?q=" + currencyCode + "_INR&compact=ultra";
+
+            string currencyValue = string.Empty;
+            try
+            {
+                var currencyValueResponse = Utilities.Get(currencyDataAPI);
+                var currencyValueJsonResponse = JObject.Parse(currencyValueResponse.Result);
+                currencyValue = currencyValueJsonResponse.First.First.ToString();
+            }
+            catch (System.Exception exception)
+            {
+                System.Console.WriteLine(exception);
+            }
+
+            CountryDataModel countryData = new CountryDataModel(){
+                IsFavorite = isFavorite,
+                CountryName = country.Name,
+                CountryCode = country.ShortName,
+                CurrencyCode = currencyCode,
+                currencyName = currencyName,
+                CurrencyValue = currencyValue,
+                CountryCapital = countryCapital,
+                CountryMapURI = countryMapURI,
+                CountryFlag = countryFlag 
+            };
+
+            return countryData;
         }
     }
 }
